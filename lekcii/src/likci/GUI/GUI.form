@@ -45,7 +45,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="90d13" class="javax.swing.JTextArea" binding="content">
+              <component id="6f56e" class="javax.swing.JTextPane" binding="content">
                 <constraints/>
                 <properties/>
               </component>
@@ -77,6 +77,22 @@
         </constraints>
         <properties>
           <text value="Выход"/>
+        </properties>
+      </component>
+      <component id="db0a9" class="javax.swing.JButton" binding="btnLector">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Лекции"/>
+        </properties>
+      </component>
+      <component id="56799" class="javax.swing.JButton" binding="btnTest">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Тестирование"/>
         </properties>
       </component>
     </children>
