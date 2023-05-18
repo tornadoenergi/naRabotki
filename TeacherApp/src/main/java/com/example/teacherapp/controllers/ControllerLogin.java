@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class ControllerLogin {
 
@@ -63,7 +64,9 @@ public class ControllerLogin {
         }
 
         if (counter>=1){
-            OpenNewScene("src/main/resources/com/example/teacherapp/teacherMainApp.fxml");
+            if(Objects.equals(user.getTeacher(), "учитель")){
+            OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");}
+            else OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");
         }
         else System.out.println("неверный логин или пароль");
 
@@ -71,8 +74,9 @@ public class ControllerLogin {
 
     public void OpenNewScene(String window){
         AuthSigInButton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(window));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(window));
+
 
         try {
             loader.load();
@@ -83,6 +87,8 @@ public class ControllerLogin {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Учитель");
         stage.showAndWait();
+
     }
 }

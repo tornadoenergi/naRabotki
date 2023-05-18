@@ -4,10 +4,16 @@ import com.example.teacherapp.DatabaseHandler;
 import com.example.teacherapp.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SingUpController {
 
@@ -38,7 +44,7 @@ public class SingUpController {
             singUpNewUser();
         ComboBoxChoice.setItems(FXCollections.observableArrayList("Учитель","Студент"));
         BackButton.setOnAction(event1 -> {
-
+            OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");
         });
         });
     }
@@ -57,6 +63,24 @@ public class SingUpController {
 
         dbHandler.singUpUser(user);
     }
+    public void OpenNewScene(String window){
+        BackButton.getScene().getWindow().hide();
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(window));
+
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Учитель");
+        stage.showAndWait();
+
+    }
 }
 

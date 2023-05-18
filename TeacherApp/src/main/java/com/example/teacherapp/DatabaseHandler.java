@@ -20,7 +20,7 @@ public class DatabaseHandler extends Configs{
 
     public void singUpUser(User user)  {
         String insert = "INSERT INTO" + Const.USER_TABLE + "(" + Const.USER_FIRSTNAME + "," + Const.USER_LASTNAME + "," +
-                Const.USER_USERNAME + "," + Const.USER_PASS + "," + Const.USER_ROLE+")" +
+                Const.USER_USERNAME + "," + Const.USER_PASS + "," + Const.USER_ROLE + ")" +
                 "VALUES(?,?,?,?,?)";
 
         try {

@@ -34,16 +34,23 @@ public class ControllerApp_teacher {
     @FXML
     void initialize() {
         Create_Button.setOnAction(event -> {
-            OpenNewScene("/main/com.example.teacherapp/singUpApp.fxml");
+            OpenNewScene("com/example/teacherapp/singUpApp.fxml");
+        });
+        test_Button.setOnAction(event1 ->{
 
+        });
+        lector_Button.setOnAction(event2 ->{
+
+        });
+        SingOut_Button.setOnAction(event3 ->{
 
         });
     }
     public void OpenNewScene(String window){
         Create_Button.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(window));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("com/example/teacherapp/singUpApp.fxml"));
+
 
         try {
             loader.load();
@@ -54,6 +61,8 @@ public class ControllerApp_teacher {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Учитель");
         stage.showAndWait();
+
     }
 }
