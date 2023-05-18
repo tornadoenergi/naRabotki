@@ -26,8 +26,6 @@ public class SingUpController {
 
     @FXML
     void initialize(){
-
-
         SingUpButton.setOnAction(event -> {
             singUpNewUser();
 

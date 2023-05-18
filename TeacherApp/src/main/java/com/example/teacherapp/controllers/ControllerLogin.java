@@ -4,11 +4,16 @@ package com.example.teacherapp.controllers;
 import com.example.teacherapp.DatabaseHandler;
 import com.example.teacherapp.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -49,15 +54,35 @@ public class ControllerLogin {
         ResultSet result= dbHandler.getUser(user);
 
         int counter = 0;
-        while(true){
-            try {
-                if (!result.next()) break;
-            } catch (SQLException e) {
-                e.printStackTrace();
+        try {
+            while(result.next()){
+                counter++;
             }
-            counter++;
+        } catch (SQLException e){
+            e.printStackTrace();
         }
+
+        if (counter>=1){
+            OpenNewScene("/main/com.example.teacherapp/teacherMainApp.fxml");
+        }
+
 
     }
 
+    public void OpenNewScene(String window){
+        AuthSigInButton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+    }
 }
