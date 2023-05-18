@@ -20,8 +20,8 @@ public class DatabaseHandler extends Configs{
 
     public void singUpUser(User user)  {
         String insert = "INSERT INTO" + Const.USER_TABLE + "(" + Const.USER_FIRSTNAME + "," + Const.USER_LASTNAME + "," +
-                Const.USER_USERNAME + "," + Const.USER_PASS + ")" +
-                "VALUES(?,?,?,?)";
+                Const.USER_USERNAME + "," + Const.USER_PASS + "," + Const.USER_ROLE+")" +
+                "VALUES(?,?,?,?,?)";
 
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
@@ -29,11 +29,10 @@ public class DatabaseHandler extends Configs{
             prSt.setString(2,user.getLastname());
             prSt.setString(3,user.getUsername());
             prSt.setString(4,user.getPassword());
+            prSt.setString(5,user.getTeacher());
 
             prSt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -41,7 +40,7 @@ public class DatabaseHandler extends Configs{
     public ResultSet getUser(User user){
         ResultSet resSet = null;
 
-        String select = "SELECT * FROM " +Const.USER_TABLE + " WHERE " + Const.USER_USERNAME + "=? AND" + Const.USER_PASS + "=?";
+        String select = "SELECT * FROM " +Const.USER_TABLE + " WHERE " + Const.USER_USERNAME + "=? AND " + Const.USER_PASS + "=?";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
 
@@ -49,9 +48,7 @@ public class DatabaseHandler extends Configs{
             prSt.setString(2,user.getPassword());
 
             resSet = prSt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return resSet;

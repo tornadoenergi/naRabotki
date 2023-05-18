@@ -63,9 +63,9 @@ public class ControllerLogin {
         }
 
         if (counter>=1){
-            OpenNewScene("/main/com.example.teacherapp/teacherMainApp.fxml");
+            OpenNewScene("src/main/resources/com/example/teacherapp/teacherMainApp.fxml");
         }
-
+        else System.out.println("неверный логин или пароль");
 
     }
 

@@ -5,16 +5,27 @@ public class User {
     private String lastname;
     private String username;
     private String password;
+    private String teacher;
 
-    public User(String firstname, String lastname, String username, String password) {
+
+    public User(String firstname, String lastname, String username, String password, String teacher) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.password = password;
+        this.teacher = teacher;
     }
 
     public User() {
 
+    }
+
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 
     public String getFirstname() {
