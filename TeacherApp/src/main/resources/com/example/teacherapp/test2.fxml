@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="84.0" layoutY="67.0" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <RadioButton layoutX="126.0" layoutY="192.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="102.0" text="Да">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </RadioButton>
+            <RadioButton layoutX="364.0" layoutY="195.0" mnemonicParsing="false" text="Нет">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </RadioButton>
+            <Button layoutX="394.0" layoutY="329.0" mnemonicParsing="false" text="Отправить">
+               <font>
+                  <Font name="Calibri" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
