@@ -4,6 +4,7 @@ module com.example.teacherapp {
     requires java.sql;
     requires mysql.connector.j;
     requires poi.ooxml;
+    requires com.aspose.words;
 
 
     opens com.example.teacherapp to javafx.fxml;

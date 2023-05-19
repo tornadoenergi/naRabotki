@@ -2,8 +2,6 @@ package com.example.teacherapp.controllers;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,13 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import com.aspose.words.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Scanner;
 
 public class ControllerApp_student {
     File folder = new File("lectures/");
@@ -29,7 +24,7 @@ public class ControllerApp_student {
     private Button lectorButton;
 
     @FXML
-    private ListView<File> lector_list;
+    private ListView<String> lector_list;
 
     @FXML
     private TextArea lector_text;
@@ -46,16 +41,15 @@ public class ControllerApp_student {
             OpenNewScene("");
         });
 
-        //fillListViewWithDocs(lector_list);
+        WordToMd();
 
-        loadFilesFromFolder(folder,lector_list);
-        lector_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<File>() {
+        lector_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends File> observableValue, File file, File t1) {
-                displayDocxFile(t1,lector_text);
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                readMarkdownFile(t1,lector_text);
             }
-
         });
+
 
     }
     public void OpenNewScene(String window){
@@ -78,45 +72,48 @@ public class ControllerApp_student {
 
     }
 
-    public void loadFilesFromFolder(File folder, ListView<File> listView) {
-        File[] files = folder.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isFile()) {
-                    listView.getItems().add(file);
-                }
-            }
-        }
-    }
 
-    public void fillListViewWithDocs(ListView<String> listView) {
+    public void WordToMd() {
+        try {
+            // указываем путь к директории с файлами
+            File directory = new File("src/lectures");
+            File[] files = directory.listFiles();
 
-        File folder = new File("lectures");
-
-        File[] files = folder.listFiles();
-
-        if (files != null) {
-            ObservableList<String> fileNames = FXCollections.observableArrayList();
-
+            assert files != null;
             for (File file : files) {
                 if (file.isFile() && file.getName().endsWith(".docx")) {
-                    fileNames.add(file.getName());
+
+                    Document doc = new Document(file.getName());
+                    doc.save(file.getName()+".md");
+                    lector_list.getItems().addAll(file.getName());
+
                 }
             }
-
-            listView.setItems(fileNames);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-    }
-    public void displayDocxFile(File file, TextArea textArea) {
-        try {
 
-            FileInputStream fis = new FileInputStream(file);
-            XWPFDocument document = new XWPFDocument(fis);
-            XWPFWordExtractor extractor = new XWPFWordExtractor(document);
-            String text = extractor.getText();
-            textArea.setText(text);
-        } catch (IOException e) {
-            e.printStackTrace();
+    }
+    public static void readMarkdownFile(String fileName, TextArea textArea) {
+        try {
+            File file = new File(fileName);
+            if (file.isFile() && file.getName().endsWith(".md")) {
+                FileInputStream fis = new FileInputStream(file);
+                Scanner scanner = new Scanner(fis);
+
+                // считываем текст из файла и выводим его в TextArea
+                StringBuilder sb = new StringBuilder();
+                while (scanner.hasNextLine()) {
+                    sb.append(scanner.nextLine()).append("\n");
+                }
+                textArea.setText(sb.toString());
+
+                // закрываем потоки
+                scanner.close();
+                fis.close();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
