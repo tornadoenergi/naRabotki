@@ -2,6 +2,8 @@ package com.example.teacherapp.controllers;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,13 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import com.aspose.words.*;
 
 import java.io.*;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class ControllerApp_student {
-    File folder = new File("lectures/");
+    String dir = ("C:\\Users\\admin\\Desktop\\TeacherApp\\src\\lectures");
+
     @FXML
     private Button SingOut_Button;
 
@@ -33,23 +35,20 @@ public class ControllerApp_student {
     private Button test_Button;
 
     @FXML
-    void initialize() throws IOException {
+    void initialize(){
         SingOut_Button.setOnAction(event ->{
-            OpenNewScene("com/example/teacherapp/loginApp.fxml");
+            OpenNewScene("/com/example/teacherapp/loginApp.fxml");
         });
         test_Button.setOnAction(event1 ->{
             OpenNewScene("");
         });
-
-        WordToMd();
-
+        populateListView(lector_list,dir);
         lector_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                readMarkdownFile(t1,lector_text);
+                viewMdToScreen(t1,lector_text,dir);
             }
         });
-
 
     }
     public void OpenNewScene(String window){
@@ -72,48 +71,29 @@ public class ControllerApp_student {
 
     }
 
+    public void populateListView(ListView<String> listView,String dir) {
+        File folder = new File(dir);
+        File[] files = folder.listFiles();
+        ArrayList<String> mdFiles = new ArrayList<>();
 
-    public void WordToMd() {
-        try {
-            // указываем путь к директории с файлами
-            File directory = new File("src/lectures");
-            File[] files = directory.listFiles();
 
-            assert files != null;
-            for (File file : files) {
-                if (file.isFile() && file.getName().endsWith(".docx")) {
-
-                    Document doc = new Document(file.getName());
-                    doc.save(file.getName()+".md");
-                    lector_list.getItems().addAll(file.getName());
-
-                }
+        for (File file : files) {
+            if (file.getName().endsWith(".md")) {
+                mdFiles.add(file.getName());
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
 
+        ObservableList<String> observableList = FXCollections.observableArrayList(mdFiles);
+        listView.setItems(observableList);
     }
-    public static void readMarkdownFile(String fileName, TextArea textArea) {
-        try {
-            File file = new File(fileName);
-            if (file.isFile() && file.getName().endsWith(".md")) {
-                FileInputStream fis = new FileInputStream(file);
-                Scanner scanner = new Scanner(fis);
-
-                // считываем текст из файла и выводим его в TextArea
-                StringBuilder sb = new StringBuilder();
-                while (scanner.hasNextLine()) {
-                    sb.append(scanner.nextLine()).append("\n");
-                }
-                textArea.setText(sb.toString());
-
-                // закрываем потоки
-                scanner.close();
-                fis.close();
+    public void viewMdToScreen(String fileName, TextArea textArea,String dir) {
+        try (BufferedReader br = new BufferedReader(new FileReader(dir+"\\"+fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) { // читаем файл построчно
+                textArea.appendText(line + "\n"); // добавляем текст в TextArea
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

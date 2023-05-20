@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class SingUpController {
 
@@ -56,9 +57,10 @@ public class SingUpController {
         String lastname = lastnameField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
-        //if (ComboBoxChoice.getValue() == )
-        String teacher = ComboBoxChoice.getItems().toString();
+        String teacher = null;
+        if (Objects.equals(ComboBoxChoice.getItems().toString(), "Учитель")) teacher = "teacher";
 
+        else if (Objects.equals(ComboBoxChoice.getItems().toString(), "Студент")) teacher = "student";
         User user = new User(firstname,lastname,username,password,teacher);
 
         dbHandler.singUpUser(user);
@@ -66,8 +68,8 @@ public class SingUpController {
     public void OpenNewScene(String window){
         BackButton.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(window));
-
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
 
         try {
             loader.load();

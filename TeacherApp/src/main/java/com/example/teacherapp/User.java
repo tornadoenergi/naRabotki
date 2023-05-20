@@ -20,13 +20,6 @@ public class User {
 
     }
 
-    public String getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
-    }
 
     public String getFirstname() {
         return firstname;
@@ -59,4 +52,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
+    }
+
 }

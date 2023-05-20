@@ -17,10 +17,10 @@ public class ControllerApp_teacher {
     private Button Create_Button;
 
     @FXML
-    private ListView<?> Lector_list;
+    private ListView<?> lector_list;
 
     @FXML
-    private TextArea Lector_text;
+    private TextArea lector_text;
 
     @FXML
     private Button SingOut_Button;
@@ -34,7 +34,7 @@ public class ControllerApp_teacher {
     @FXML
     void initialize() {
         Create_Button.setOnAction(event -> {
-            OpenNewScene("com/example/teacherapp/singUpApp.fxml");
+            OpenNewScene("/com/example/teacherapp/singUpApp.fxml");
         });
         test_Button.setOnAction(event1 ->{
 
@@ -49,8 +49,8 @@ public class ControllerApp_teacher {
     public void OpenNewScene(String window){
         Create_Button.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("com/example/teacherapp/singUpApp.fxml"));
-
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
 
         try {
             loader.load();

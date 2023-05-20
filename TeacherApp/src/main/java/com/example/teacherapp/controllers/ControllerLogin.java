@@ -37,8 +37,9 @@ public class ControllerLogin {
         AuthSigInButton.setOnAction(event -> {
             String loginText = login_field.getText().trim();
             String loginPassword = password_field.getText().trim();
-            if(!loginText.equals("") && !loginPassword.equals(""))
+            if(!loginText.equals("") && !loginPassword.equals("")) {
                 loginUser(loginText, loginPassword);
+            }
             else
                 System.out.println("Login or password empty");
         });
@@ -54,19 +55,23 @@ public class ControllerLogin {
         user.setPassword(loginPassword);
         ResultSet result= dbHandler.getUser(user);
 
+        String role = null;
         int counter = 0;
         try {
             while(result.next()){
                 counter++;
+                role = result.getString("teacher");
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
 
+
+
         if (counter>=1){
-            if(Objects.equals(user.getTeacher(), "учитель")){
+            if(Objects.equals(role, "teacher")){
             OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");}
-            else OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");
+            else if(Objects.equals(role, "student"))OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");
         }
         else System.out.println("неверный логин или пароль");
 

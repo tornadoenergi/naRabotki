@@ -40,7 +40,7 @@ public class DatabaseHandler extends Configs{
     public ResultSet getUser(User user){
         ResultSet resSet = null;
 
-        String select = "SELECT * FROM " +Const.USER_TABLE + " WHERE " + Const.USER_USERNAME + "=? AND " + Const.USER_PASS + "=?";
+        String select = "SELECT * FROM " +Const.USER_TABLE + " WHERE " + Const.USER_USERNAME + "=? AND " + Const.USER_PASS + "=? " ;
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
 
