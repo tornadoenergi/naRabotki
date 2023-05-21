@@ -72,7 +72,7 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="ComboBoxChoice" accessibleText="" editable="true" layoutX="208.0" layoutY="228.0" prefHeight="34.0" prefWidth="185.0" promptText="Выберите" />
       <Button fx:id="BackButton" layoutX="504.0" layoutY="285.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="80.0" text="Вернуться" />
+      <ComboBox fx:id="ComboBox" layoutX="208.0" layoutY="229.0" prefHeight="34.0" prefWidth="185.0" promptText="Выбирите" />
    </children>
 </AnchorPane>

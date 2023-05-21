@@ -10,53 +10,60 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class ControllerApp_student {
-    String projectPath = System.getProperty("TeacherApp.dir");
+public class ControllerTestsApp_student {
     String dir = ("C:\\Users\\admin\\Desktop\\TeacherApp\\lectures");
+    @FXML
+    private Button GoTest_Button;
+
+    @FXML
+    private Button Results_Button;
 
     @FXML
     private Button SingOut_Button;
 
     @FXML
+    private ListView<String> Test_List;
+
+    @FXML
     private Button lectorButton;
-
-    @FXML
-    private ListView<String> lector_list;
-
-    @FXML
-    private TextArea lector_text;
 
     @FXML
     private Button test_Button;
 
     @FXML
     void initialize(){
-        SingOut_Button.setOnAction(event ->{
-            OpenNewScene("/com/example/teacherapp/loginApp.fxml");
-        });
-        test_Button.setOnAction(event1 ->{
-            OpenNewScene("/com/example/teacherapp/studentTestsApp.fxml");
-        });
-        populateListView(lector_list,dir);
-        lector_list.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        populateListView(Test_List,dir);
+        Test_List.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                viewMdToScreen(t1,lector_text,dir);
+                GoTest_Button.setOnAction(event ->{
+
+                });
             }
+        });
+        lectorButton.setOnAction(event -> {
+            OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");
+        });
+        SingOut_Button.setOnAction(event -> {
+            OpenNewScene("/com/example/teacherapp/loginApp.fxml");
+        });
+        Results_Button.setOnAction(event -> {
+            OpenNewScene("/com/example/teacherapp/resultsAll.fxml");
         });
 
     }
+
     public void OpenNewScene(String window){
-        SingOut_Button.getScene().getWindow().hide();
+        lectorButton.getScene().getWindow().hide();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(window));
-
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(window));
 
         try {
             loader.load();
@@ -71,7 +78,6 @@ public class ControllerApp_student {
         stage.showAndWait();
 
     }
-
     public void populateListView(ListView<String> listView,String dir) {
         File folder = new File(dir);
         File[] files = folder.listFiles();
@@ -89,14 +95,6 @@ public class ControllerApp_student {
         ObservableList<String> observableList = FXCollections.observableArrayList(mdFiles);
         listView.setItems(observableList);
     }
-    public void viewMdToScreen(String fileName, TextArea textArea,String dir) {
-        try (BufferedReader br = new BufferedReader(new FileReader(dir+"\\"+fileName+".md"))) {
-            String line;
-            while ((line = br.readLine()) != null) { // читаем файл построчно
-                textArea.appendText(line + "\n"); // добавляем текст в TextArea
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+
 }

@@ -1,7 +1,7 @@
 package com.example.teacherapp.controllers;
 
-import com.example.teacherapp.DatabaseHandler;
-import com.example.teacherapp.User;
+import com.example.teacherapp.DataBase.DatabaseHandler;
+import com.example.teacherapp.Variables.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +20,10 @@ public class SingUpController {
 
     @FXML
     private Button BackButton;
+
+    @FXML
+    private ComboBox<String> ComboBox;
+
     @FXML
     private Button SingUpButton;
 
@@ -30,24 +34,20 @@ public class SingUpController {
     private TextField lastnameField;
 
     @FXML
-    private TextField usernameField;
-
-    @FXML
     private PasswordField passwordField;
 
-
     @FXML
-    private ComboBox<String> ComboBoxChoice;
+    private TextField usernameField;
 
     @FXML
     void initialize(){
         SingUpButton.setOnAction(event -> {
-            singUpNewUser();
-        ComboBoxChoice.setItems(FXCollections.observableArrayList("Учитель","Студент"));
+            singUpNewUser();});
+        ComboBox.setItems(FXCollections.observableArrayList("Учитель","Студент"));
         BackButton.setOnAction(event1 -> {
             OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");
         });
-        });
+
     }
 
     private void singUpNewUser() {
@@ -58,9 +58,9 @@ public class SingUpController {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String teacher = null;
-        if (Objects.equals(ComboBoxChoice.getItems().toString(), "Учитель")) teacher = "teacher";
+        if (Objects.equals(ComboBox.getValue(), "Учитель")) {teacher = "teacher";}
+        else if (Objects.equals(ComboBox.getValue(), "Студент")) {teacher = "student";}
 
-        else if (Objects.equals(ComboBoxChoice.getItems().toString(), "Студент")) teacher = "student";
         User user = new User(firstname,lastname,username,password,teacher);
 
         dbHandler.singUpUser(user);

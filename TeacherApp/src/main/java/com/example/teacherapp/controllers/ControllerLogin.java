@@ -1,8 +1,8 @@
 package com.example.teacherapp.controllers;
 
 
-import com.example.teacherapp.DatabaseHandler;
-import com.example.teacherapp.User;
+import com.example.teacherapp.DataBase.DatabaseHandler;
+import com.example.teacherapp.Variables.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,7 +38,11 @@ public class ControllerLogin {
             String loginText = login_field.getText().trim();
             String loginPassword = password_field.getText().trim();
             if(!loginText.equals("") && !loginPassword.equals("")) {
-                loginUser(loginText, loginPassword);
+                try {
+                    loginUser(loginText, loginPassword);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
             else
                 System.out.println("Login or password empty");
@@ -48,7 +52,7 @@ public class ControllerLogin {
 
     }
 
-    private void loginUser(String loginText, String loginPassword) {
+    private void loginUser(String loginText, String loginPassword) throws SQLException {
         DatabaseHandler dbHandler = new DatabaseHandler();
         User user = new User();
         user.setUsername(loginText);
@@ -61,17 +65,18 @@ public class ControllerLogin {
             while(result.next()){
                 counter++;
                 role = result.getString("teacher");
+                user.setUserID(result.getInt("userid"));
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
 
-
-
         if (counter>=1){
             if(Objects.equals(role, "teacher")){
             OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");}
-            else if(Objects.equals(role, "student"))OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");
+            else if(Objects.equals(role, "student")){OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");}
+            //user.setUserID(result.getInt("usersid"));
+            //System.out.println(result.getInt("userid"));
         }
         else System.out.println("неверный логин или пароль");
 
@@ -81,7 +86,6 @@ public class ControllerLogin {
         AuthSigInButton.getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(window));
-
 
         try {
             loader.load();
