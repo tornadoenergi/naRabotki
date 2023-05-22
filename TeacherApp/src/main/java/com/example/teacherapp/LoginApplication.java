@@ -11,7 +11,7 @@ import java.io.IOException;
 public class LoginApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(LoginApplication.class.getResource("studentTestsApp.fxml"));
+        FXMLLoader loader = new FXMLLoader(LoginApplication.class.getResource("studentMainApp.fxml"));
         Parent root = loader.load();
         loader.setRoot(root); // установка корневого элемента
         Scene scene = new Scene(root, 450, 250);

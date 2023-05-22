@@ -11,7 +11,7 @@ public class Const {
     public static final String USER_ROLE = "teacher";
 
     public static final String TEST_TABLE = "tests";
-    public static final String TEST_ID = "userid";
+    public static final String TEST_USER_ID = "userid";
     public static final String TEST_TEST_ID = "testid";
     public static final String TEST_NAME = "name";
     public static final String TEST_DATE = "date";

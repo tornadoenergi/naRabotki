@@ -2,6 +2,8 @@ package com.example.teacherapp.controllers;
 
 
 import com.example.teacherapp.DataBase.DatabaseHandler;
+import com.example.teacherapp.Storage.Storage;
+import com.example.teacherapp.Storage.StorageSingleton;
 import com.example.teacherapp.Variables.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +25,6 @@ public class ControllerLogin {
     @FXML
     private Button AuthSigInButton;
 
-    @FXML
-    private AnchorPane Pane_auto;
     @FXML
     private TextField login_field;
 
@@ -53,6 +53,7 @@ public class ControllerLogin {
     }
 
     private void loginUser(String loginText, String loginPassword) throws SQLException {
+        Storage storage = StorageSingleton.getInstance();
         DatabaseHandler dbHandler = new DatabaseHandler();
         User user = new User();
         user.setUsername(loginText);
@@ -74,11 +75,10 @@ public class ControllerLogin {
 
         if (counter>=1){
             if(Objects.equals(role, "teacher")){
-            OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");}
-            else if(Objects.equals(role, "student")){OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");}
-            //user.setUserID(result.getInt("usersid"));
-            user.setUserID(userID);
-            //System.out.println(result.getInt("userid"));
+            OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");storage.setUserId(userID);}
+            else if(Objects.equals(role, "student")){OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");storage.setUserId(userID);}
+
+
         }
         else System.out.println("неверный логин или пароль");
 

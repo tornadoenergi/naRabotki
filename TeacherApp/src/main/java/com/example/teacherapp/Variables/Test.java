@@ -3,21 +3,26 @@ package com.example.teacherapp.Variables;
 
 public class Test {
     private String TestName;
-    private Integer Test_ID;
-    private java.sql.Date Date;
+    private int Test_ID;
+    private java.sql.Timestamp Date;
     private int userID;
 
-    public Test(String testName, java.sql.Date date, int userID) {
+    public Test(String testName, java.sql.Timestamp date, int userID,int test_ID) {
         TestName = testName;
         Date = date;
         this.userID = userID;
     }
 
-    public Integer getTest_ID() {
+    public Test(int test_ID, int userID) {
+        Test_ID = test_ID;
+        this.userID = userID;
+    }
+
+    public int getTest_ID() {
         return Test_ID;
     }
 
-    public void setTest_ID(Integer test_ID) {
+    public void setTest_ID(int test_ID) {
         Test_ID = test_ID;
     }
 
@@ -32,11 +37,11 @@ public class Test {
         TestName = testName;
     }
 
-    public java.sql.Date getDate() {
+    public java.sql.Timestamp getDate() {
         return Date;
     }
 
-    public void setDate(java.sql.Date date) {
+    public void setDate(java.sql.Timestamp date) {
         Date = date;
     }
 

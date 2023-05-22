@@ -1,10 +1,14 @@
 package com.example.teacherapp.Variables;
 
+import com.example.teacherapp.Storage.Storage;
+import com.example.teacherapp.Storage.StorageSingleton;
+
 public class Results {
-    private int correctAnswers;
+    private int correctAnswers = 0;
 
     public Results() {
-        correctAnswers = 0;
+        Storage storage = StorageSingleton.getInstance();
+        correctAnswers = storage.getCorrect();
     }
 
     public void addAnswer(boolean isCorrect) {

@@ -1,7 +1,12 @@
 package com.example.teacherapp.controllers;
 
 import com.example.teacherapp.DataBase.DatabaseHandler;
+import com.example.teacherapp.Storage.ProcessedQuestions;
+import com.example.teacherapp.Storage.Storage;
+import com.example.teacherapp.Storage.StorageSingleton;
 import com.example.teacherapp.Variables.Question;
+import com.example.teacherapp.Variables.Test;
+import com.example.teacherapp.Variables.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,14 +21,15 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import static com.example.teacherapp.ProcessedQuestions.TestID;
-import static com.example.teacherapp.ProcessedQuestions.processedQuestions;
+import static com.example.teacherapp.Storage.ProcessedQuestions.TestID;
+import static com.example.teacherapp.Storage.ProcessedQuestions.processedQuestions;
 
 
 public class ControllerTestsApp_student {
@@ -48,8 +54,9 @@ public class ControllerTestsApp_student {
 
     @FXML
     void initialize(){
+        Storage storage = StorageSingleton.getInstance();
         populateListView(Test_List,dir);
-
+        int UserId = storage.getUserId();
         Test_List.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -58,6 +65,8 @@ public class ControllerTestsApp_student {
                     processedQuestions=new ArrayList<>();
                     getAnswerType(selectedIndex,processedQuestions);
                     TestID=selectedIndex;
+                    storage.setUserId(selectedIndex);
+                    SetTest(t1,selectedIndex,UserId);
                 });
             }
         });
@@ -71,6 +80,15 @@ public class ControllerTestsApp_student {
             OpenNewScene("/com/example/teacherapp/resultsAll.fxml");
         });
 
+    }
+
+    private void SetTest(String name,int testId, int userid) {
+        DatabaseHandler dbHandler = new DatabaseHandler();
+
+        Timestamp date = new Timestamp(System.currentTimeMillis());
+        Test test = new Test(name,date,userid,testId);
+
+        dbHandler.setTest(test);
     }
 
     public void OpenNewScene(String window){
@@ -135,6 +153,7 @@ public class ControllerTestsApp_student {
                 processedQuestions.add(question); // Добавляем в список обработанных
             }
             question1.setText_question(question);
+            ProcessedQuestions.setTextQuest(question);
             // Поиск ответов по testId и вопросу
             rs = dbHandler.getQuest(question1);
             while (rs.next()) {
@@ -146,7 +165,7 @@ public class ControllerTestsApp_student {
         }
 
         if (answerCount == 4) {
-            OpenNewScene("/com/example/teacherapp/test3.fxml"); // Другое
+            OpenNewScene("/com/example/teacherapp/test2.fxml"); // Другое
         } else if (answerCount == 2) {
             OpenNewScene("/com/example/teacherapp/test1.fxml"); // 3 окно
         }

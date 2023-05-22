@@ -15,4 +15,6 @@ module com.example.teacherapp {
     opens com.example.teacherapp.Variables to javafx.fxml;
     exports com.example.teacherapp.DataBase;
     opens com.example.teacherapp.DataBase to javafx.fxml;
+    exports com.example.teacherapp.Storage;
+    opens com.example.teacherapp.Storage to javafx.fxml;
 }

@@ -41,13 +41,18 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="654.0" prefWidth="1261.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teacherapp.controllers.ControllerApp_student">
+<BorderPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="654.0" prefWidth="1261.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teacherapp.controllers.ControllerApp_student">
    <center>
       <SplitPane dividerPositions="0.25" opacity="0.66" prefHeight="200.0" prefWidth="200.0">
          <items>
-            <ListView fx:id="lector_list" prefHeight="543.0" prefWidth="309.0" />
-            <TextArea fx:id="lector_text" mouseTransparent="true" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="lector_list" fixedCellSize="-10.0" prefHeight="543.0" prefWidth="309.0" />
+            <TextArea fx:id="lector_text" prefHeight="200.0" prefWidth="200.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextArea>
          </items>
       </SplitPane>
    </center>
