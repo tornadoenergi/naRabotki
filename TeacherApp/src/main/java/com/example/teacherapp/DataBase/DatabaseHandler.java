@@ -59,6 +59,22 @@ public class DatabaseHandler extends Configs{
         }
         return resSet;
     }
+    public ResultSet getTest1(){
+
+        ResultSet resSet = null;
+
+        String select = "SELECT * FROM " + Const.TEST_TABLE;
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+
+            resSet = prSt.executeQuery();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return resSet;
+    }
     public ResultSet getTest(Test test){
 
         ResultSet resSet = null;
@@ -173,14 +189,14 @@ public class DatabaseHandler extends Configs{
     }
     public ResultSet getResult(Result result){
         ResultSet resSet = null;
-        String select = "SELECT * FROM " + Const.RESULT_TABLE + " WHERE " + Const.RESULT_TEST_ID + "=? AND " + Const.RESULT_USER
-                + "=? AND " + Const.RESULT_CORRECT + "=? ";
+        String select = "SELECT * FROM " + Const.RESULT_TABLE + " WHERE "
+                + Const.RESULT_USER + "=? ";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
 
-            prSt.setInt(1,result.getTestID());
-            prSt.setInt(2,result.getUserID());
-            prSt.setString(3, result.getResult());
+
+            prSt.setInt(1,result.getUserID());
+
 
             resSet = prSt.executeQuery();
 

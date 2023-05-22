@@ -1,29 +1,33 @@
 package com.example.teacherapp.Variables;
 
 public class Result {
-    private Integer userID;
-    private Integer testID;
+    private int userID;
+    private int testID;
     private String result;
 
-    public Result(Integer userID, Integer testID, String result) {
+    public Result(int userID, int testID, String result) {
         this.userID = userID;
         this.testID = testID;
         this.result = result;
     }
 
-    public Integer getUserID() {
-        return userID;
-    }
-
-    public void setUserID(Integer userID) {
+    public Result(int userID) {
         this.userID = userID;
     }
 
-    public Integer getTestID() {
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public int getTestID() {
         return testID;
     }
 
-    public void setTestID(Integer testID) {
+    public void setTestID(int testID) {
         this.testID = testID;
     }
 

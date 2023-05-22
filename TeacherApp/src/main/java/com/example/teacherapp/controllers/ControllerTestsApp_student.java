@@ -38,6 +38,8 @@ public class ControllerTestsApp_student {
     private Button GoTest_Button;
 
     @FXML
+    private Button ResultsAll_Button;
+    @FXML
     private Button Results_Button;
 
     @FXML
@@ -77,7 +79,10 @@ public class ControllerTestsApp_student {
             OpenNewScene("/com/example/teacherapp/loginApp.fxml");
         });
         Results_Button.setOnAction(event -> {
-            OpenNewScene("/com/example/teacherapp/resultsAll.fxml");
+            OpenNewScene("/com/example/teacherapp/results.fxml");
+        });
+        ResultsAll_Button.setOnAction(event -> {
+            OpenNewScene("/com/example/teacherapp/resultAll.fxml");
         });
 
     }
