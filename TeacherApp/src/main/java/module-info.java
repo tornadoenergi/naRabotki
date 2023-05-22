@@ -3,7 +3,7 @@ module com.example.teacherapp {
     requires javafx.fxml;
     requires java.sql;
     requires mysql.connector.j;
-    requires com.aspose.words;
+
     requires java.desktop;
 
 
