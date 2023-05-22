@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teacherapp.controllers.ControllerTest1">
+   <bottom>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button fx:id="NextButton" mnemonicParsing="false" text="Отправить" translateX="-15.0" />
+        </buttons>
+      </ButtonBar>
+   </bottom>
    <center>
-      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="343.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="47.0" layoutY="46.0" prefHeight="27.0" prefWidth="131.0" text="1">
+            <Label fx:id="TextQuestion" layoutX="84.0" layoutY="67.0" text="label">
                <font>
-                  <Font name="Calibri" size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <RadioButton layoutX="191.0" layoutY="174.0" mnemonicParsing="false" text="RadioButton" />
-            <RadioButton layoutX="191.0" layoutY="204.0" mnemonicParsing="false" text="RadioButton" />
-            <RadioButton layoutX="191.0" layoutY="234.0" mnemonicParsing="false" text="RadioButton" />
-            <RadioButton layoutX="191.0" layoutY="264.0" mnemonicParsing="false" text="RadioButton" />
+            <RadioButton fx:id="RadioButtonYes" layoutX="74.0" layoutY="207.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="186.0" text="Да">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="answers" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="RadioButtonNo" layoutX="352.0" layoutY="202.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="176.0" text="Нет" toggleGroup="$answers">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </RadioButton>
          </children>
       </AnchorPane>
    </center>

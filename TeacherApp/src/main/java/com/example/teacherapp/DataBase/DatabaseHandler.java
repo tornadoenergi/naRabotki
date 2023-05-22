@@ -11,9 +11,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends Configs{
     Connection dbConnection;
-
     public Connection getDbConnection() throws ClassNotFoundException, SQLException{
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" +dbName;
 
@@ -23,7 +25,6 @@ public class DatabaseHandler extends Configs{
 
         return dbConnection;
     }
-
     public void singUpUser(User user)  {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USER_FIRSTNAME + "," + Const.USER_LASTNAME + "," +
                 Const.USER_USERNAME + "," + Const.USER_PASS + "," + Const.USER_ROLE + ")" +
@@ -42,8 +43,6 @@ public class DatabaseHandler extends Configs{
             e.printStackTrace();
         }
     }
-
-
     public ResultSet getUser(User user){
         ResultSet resSet = null;
 
@@ -80,21 +79,111 @@ public class DatabaseHandler extends Configs{
 
         return resSet;
     }
-    public ResultSet getQuestion(Question question){
+    public void setTest(Test test){
+        String insert = "INSERT INTO " + Const.TEST_TABLE + "(" + Const.TEST_NAME + "," + Const.TEST_TEST_ID + ","
+                + Const.TEST_ID + "," + Const.TEST_DATE + ")" + "VALUES(?,?,?,?)";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+
+            prSt.setString(1,test.getTestName());
+            prSt.setInt(2,test.getTest_ID());
+            prSt.setInt(3,test.getUserID());
+            prSt.setDate(3,test.getDate());
+
+            prSt.executeQuery();
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
+    public ResultSet getQuestion(Question question) {
         ResultSet resSet = null;
-        String select = "SELECT * FROM " + Const.TEST_TABLE + " WHERE " + Const.TEST_ID + "=? AND "+Const.QUESTION_TEST
-                + "=? AND " + Const.TEST_NAME + "=? ";
-                //+ Const.QUESTION_QUESTION + "=? AND " + Const.QUESTION_ANSWER + "=? And " + Const.QUESTION_CORRECT + "=? And "  ;
-        try{
+
+        String select = "SELECT " + Const.QUESTION_QUESTION + " FROM " + Const.QUESTION_TABLE
+                + " WHERE " + Const.QUESTION_TEST + "= ?";
+
+        try {
             PreparedStatement prSt = getDbConnection().prepareStatement(select);
-            
+
             prSt.setInt(1, question.getTest_ID());
-            prSt.setInt(2, question.getTest_Question_ID());
-            prSt.setString(3, question.getText_question());
 
             resSet = prSt.executeQuery();
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resSet;
+    }
+    public ResultSet getQuest(Question question){
+        ResultSet resSet = null;
+
+        String select = "SELECT " + Const.QUESTION_ANSWER + " FROM " + Const.QUESTION_TABLE + " WHERE " + Const.QUESTION_TEST + "=? AND " +Const.QUESTION_QUESTION + "=?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+            prSt.setInt(1,question.getTest_ID());
+            prSt.setString(2,question.getText_question());
+
+            resSet = prSt.executeQuery();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resSet;
+    }
+    public ResultSet getQuestions(Question question){
+        ResultSet resSet = null;
+        String select = "SELECT * FROM " + Const.QUESTION_TABLE + " WHERE " + Const.QUESTION_TEST + "=? ";
+        // + Const.QUESTION_QUESTION + "=? ";+ Const.QUESTION_ANSWER +"=? AND " + Const.QUESTION_CORRECT + "=? ";
+        try{
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+
+            prSt.setInt(1, question.getTest_ID());
+            //prSt.setString(2, question.getText_question());
+            //prSt.setString(3,question.getAnswer());
+            //prSt.setString(4,question.getCorrect());
+
+            resSet = prSt.executeQuery();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resSet;
+    }
+    public void setQuestion (Question question){
+        String insert = "INSERT INTO "+ Const.QUESTION_TABLE + "(" +Const.QUESTION_TEST + "," + Const.QUESTION_QUESTION
+                + "," + Const.QUESTION_ANSWER + "," + Const.QUESTION_CORRECT + ")" + "VALUES(?,?,?,?)";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+
+            prSt.setInt(1,question.getTest_ID());
+            prSt.setString(2,question.getText_question());
+            prSt.setString(3,question.getAnswer());
+            prSt.setString(4,question.getCorrect());
+
+            prSt.executeQuery();
+        }catch (SQLException | ClassNotFoundException e ){
+            e.printStackTrace();
+        }
+    }
+    public ResultSet getResult(Result result){
+        ResultSet resSet = null;
+        String select = "SELECT * FROM " + Const.RESULT_TABLE + " WHERE " + Const.RESULT_TEST_ID + "=? AND " + Const.RESULT_USER
+                + "=? AND " + Const.RESULT_CORRECT + "=? ";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+
+            prSt.setInt(1,result.getTestID());
+            prSt.setInt(2,result.getUserID());
+            prSt.setString(3, result.getResult());
+
+            resSet = prSt.executeQuery();
+
+        } catch (Exception e){
             e.printStackTrace();
         }
 
@@ -118,23 +207,4 @@ public class DatabaseHandler extends Configs{
 
     }
 
-    public ResultSet getResult(Result result){
-        ResultSet resSet = null;
-        String select = "SELECT * FROM " + Const.RESULT_TABLE + " WHERE " + Const.RESULT_TEST_ID + "=? AND " + Const.RESULT_USER
-                + "=? AND " + Const.RESULT_CORRECT + "=? ";
-        try {
-            PreparedStatement prSt = getDbConnection().prepareStatement(select);
-
-            prSt.setInt(1,result.getTestID());
-            prSt.setInt(2,result.getUserID());
-            prSt.setString(3, result.getResult());
-
-            resSet = prSt.executeQuery();
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return resSet;
-    }
 }

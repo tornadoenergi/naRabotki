@@ -60,12 +60,13 @@ public class ControllerLogin {
         ResultSet result= dbHandler.getUser(user);
 
         String role = null;
+        int userID = 0;
         int counter = 0;
         try {
             while(result.next()){
                 counter++;
                 role = result.getString("teacher");
-                user.setUserID(result.getInt("userid"));
+                userID = result.getInt("userid");
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -76,6 +77,7 @@ public class ControllerLogin {
             OpenNewScene("/com/example/teacherapp/teacherMainApp.fxml");}
             else if(Objects.equals(role, "student")){OpenNewScene("/com/example/teacherapp/studentMainApp.fxml");}
             //user.setUserID(result.getInt("usersid"));
+            user.setUserID(userID);
             //System.out.println(result.getInt("userid"));
         }
         else System.out.println("неверный логин или пароль");

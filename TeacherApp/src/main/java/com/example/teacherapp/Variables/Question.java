@@ -1,17 +1,17 @@
 package com.example.teacherapp.Variables;
 
 public class Question {
-    private Integer Test_ID;
-    private Integer Test_Question_ID;
+    private int Test_ID;
+    private int Test_Question_ID;
     private String Text_question;
+    private String correct;
     private String answer;
     private String answer2;
     private String answer3;
     private String answer4;
 
-    public Question(Integer test_ID, Integer test_Question_ID, String text_question, String answer, String answer2, String answer3, String answer4) {
+    public Question(int test_ID, int test_Question_ID, String text_question, String answer, String answer2, String answer3, String answer4) {
         Test_ID = test_ID;
-        Test_Question_ID = test_Question_ID;
         Text_question = text_question;
         this.answer = answer;
         this.answer2 = answer2;
@@ -19,13 +19,12 @@ public class Question {
         this.answer4 = answer4;
     }
 
-    public Question(Integer test_ID, Integer test_Question_ID, String text_question) {
+    public Question(int test_ID) {
         Test_ID = test_ID;
-        Test_Question_ID = test_Question_ID;
-        Text_question = text_question;
     }
 
-    public Question(String text_question, String answer, String answer2) {
+    public Question(int test_ID, String text_question, String answer, String answer2) {
+        Test_ID = test_ID;
         Text_question = text_question;
         this.answer = answer;
         this.answer2 = answer2;
@@ -35,19 +34,27 @@ public class Question {
 
     }
 
-    public Integer getTest_Question_ID() {
+    public String getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(String correct) {
+        this.correct = correct;
+    }
+
+    public int getTest_Question_ID() {
         return Test_Question_ID;
     }
 
-    public void setTest_Question_ID(Integer test_Question_ID) {
+    public void setTest_Question_ID(int test_Question_ID) {
         Test_Question_ID = test_Question_ID;
     }
 
-    public Integer getTest_ID() {
+    public int getTest_ID() {
         return Test_ID;
     }
 
-    public void setTest_ID(Integer test_ID) {
+    public void setTest_ID(int test_ID) {
         Test_ID = test_ID;
     }
 

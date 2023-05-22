@@ -18,8 +18,8 @@ public class Const {
 
     public static final String QUESTION_TABLE = "questions";
     public static final String QUESTION_TEST = "testid";
-    public static final String QUESTION_QUESTION = "question";
-    public static final String QUESTION_CORRECT = "corrent";
+    public static final String QUESTION_QUESTION = "questions";
+    public static final String QUESTION_CORRECT = "correct";
     public static final String QUESTION_ANSWER = "answer";
 
     public static final String RESULT_TABLE = "results";
