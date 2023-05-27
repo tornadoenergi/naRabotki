@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="47.0" layoutY="46.0" prefHeight="27.0" prefWidth="276.0" text="1. Структуры данных квалифицируются ">
+               <font>
+                  <Font name="Calibri" size="15.0" />
+               </font>
+            </Label>
+            <RadioButton layoutX="169.0" layoutY="180.0" mnemonicParsing="false" text="По упорядоченности">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton layoutX="168.0" layoutY="224.0" mnemonicParsing="false" text="По изменчивости структуры по времени">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton layoutX="168.0" layoutY="309.0" mnemonicParsing="false" text="По упорядоченности структуры">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton layoutX="169.0" layoutY="264.0" mnemonicParsing="false" text="По связаности данных">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <Pane prefHeight="53.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="400.0" layoutY="14.0" mnemonicParsing="false" text="Отправить">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </bottom>
+</BorderPane>
