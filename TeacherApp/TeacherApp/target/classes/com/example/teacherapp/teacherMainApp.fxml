@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="654.0" prefWidth="1261.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.teacherapp.controllers.ControllerApp_teacher">
+   <center>
+      <SplitPane dividerPositions="0.25" prefHeight="200.0" prefWidth="200.0">
+         <items>
+            <ListView fx:id="Lector_list" fixedCellSize="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="543.0" prefWidth="309.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ListView>
+            <TextArea fx:id="Lector_text" mouseTransparent="true" prefHeight="200.0" prefWidth="200.0" />
+         </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <ButtonBar prefHeight="41.0" prefWidth="1248.0" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button fx:id="Create_Button" mnemonicParsing="false" text="Создать" translateX="-15.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="SingOut_Button" layoutX="1196.0" layoutY="18.0" mnemonicParsing="false" text="Выйти" translateX="-10.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+        </buttons>
+      </ButtonBar>
+   </bottom>
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <Button fx:id="lector_Button" mnemonicParsing="false" text="Лекции" translateX="15.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="test_Button" cache="true" mnemonicParsing="false" text="Тестирование" textOverrun="CLIP" translateX="30.0">
+               <opaqueInsets>
+                  <Insets left="5.0" />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+        </items>
+      </ToolBar>
+   </top>
+</BorderPane>
